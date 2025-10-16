@@ -1,0 +1,541 @@
+{
+  "title": "実験後アンケート（全13問　想定５分）",
+  "description": "オノマトペ（擬音語・擬態語）に関するアンケートにご協力ください。\n\n東京都立大学下川原研究室",
+  "contact": "倫理審査承認番号XXX（承認日：2025年6月30日）\n本実験に関するお問い合わせ：yoshinaga-yuki@ed.tmu.ac.jp（吉永）",
+  "contents": [
+    {
+      "type": "section",
+      "title": "【あなたについて】",
+      "description": "以下の質問にご回答ください。",
+      "contents": [
+		{
+			"item": "被験者番号",
+			"description": "あなたの被験者番号を記入してください",
+			"type": "text",
+			"required": true,
+			"content": {
+				"placeholder": "AA001"
+			}
+		},
+        {
+          "item": "年齢",
+          "description": "今日現在のご年齢を半角数値で入力してください。例：23",
+          "type": "text",
+          "required": true,
+          "content": {
+            "placeholder": "例：23"
+          }
+        },
+        {
+          "item": "性別",
+          "description": "最も該当するものを選択してください",
+          "type": "selection",
+          "required": true,
+          "content": {
+            "options": [
+              { "item": "男性", "value": "male" },
+              { "item": "女性", "value": "female" },
+              { "item": "わからない/その他", "value": "other" },
+              { "item": "回答しない", "value": "no_answer" }
+            ]
+          }
+        },
+        {
+          "item": "利き手",
+          "description": "ご自身の利き手を選択してください",
+          "type": "selection",
+          "required": true,
+          "content": {
+            "options": [
+              { "item": "右利き", "value": "right" },
+              { "item": "左利き", "value": "left" },
+              { "item": "両利き", "value": "both" },
+              { "item": "わからない／その他", "value": "other" }
+            ]
+          }
+        },
+        {
+          "item": "出身地",
+          "description": "ご自身の都道府県を選択してください（複数考えられる場合は、複数選択可能です。）",
+          "type": "checkbox",
+          "required": true,
+          "content": {
+            "min-check": 1,
+            "max-check": 49,
+            "options": [
+              { "item": "北海道", "value": "hokkaido", "region": "北海道" },
+
+              { "item": "青森", "value": "aomori", "region": "東北" },
+              { "item": "岩手", "value": "iwate", "region": "東北" },
+              { "item": "宮城", "value": "miyagi", "region": "東北" },
+              { "item": "秋田", "value": "akita", "region": "東北" },
+              { "item": "山形", "value": "yamagata", "region": "東北" },
+              { "item": "福島", "value": "fukushima", "region": "東北" },
+
+              { "item": "茨城", "value": "ibaraki", "region": "関東" },
+              { "item": "栃木", "value": "tochigi", "region": "関東" },
+              { "item": "群馬", "value": "gunma", "region": "関東" },
+              { "item": "埼玉", "value": "saitama", "region": "関東" },
+              { "item": "千葉", "value": "chiba", "region": "関東" },
+              { "item": "東京", "value": "tokyo", "region": "関東" },
+              { "item": "神奈川", "value": "kanagawa", "region": "関東" },
+
+              { "item": "新潟", "value": "niigata", "region": "中部" },
+              { "item": "富山", "value": "toyama", "region": "中部" },
+              { "item": "石川", "value": "ishikawa", "region": "中部" },
+              { "item": "福井", "value": "fukui", "region": "中部" },
+              { "item": "山梨", "value": "yamanashi", "region": "中部" },
+              { "item": "長野", "value": "nagano", "region": "中部" },
+              { "item": "岐阜", "value": "gifu", "region": "中部" },
+              { "item": "静岡", "value": "shizuoka", "region": "中部" },
+              { "item": "愛知", "value": "aichi", "region": "中部" },
+
+              { "item": "三重", "value": "mie", "region": "近畿" },
+              { "item": "滋賀", "value": "shiga", "region": "近畿" },
+              { "item": "京都", "value": "kyoto", "region": "近畿" },
+              { "item": "大阪", "value": "osaka", "region": "近畿" },
+              { "item": "兵庫", "value": "hyogo", "region": "近畿" },
+              { "item": "奈良", "value": "nara", "region": "近畿" },
+              { "item": "和歌山", "value": "wakayama", "region": "近畿" },
+
+              { "item": "鳥取", "value": "tottori", "region": "中国" },
+              { "item": "島根", "value": "shimane", "region": "中国" },
+              { "item": "岡山", "value": "okayama", "region": "中国" },
+              { "item": "広島", "value": "hiroshima", "region": "中国" },
+              { "item": "山口", "value": "yamaguchi", "region": "中国" },
+
+              { "item": "徳島", "value": "tokushima", "region": "四国" },
+              { "item": "香川", "value": "kagawa", "region": "四国" },
+              { "item": "愛媛", "value": "ehime", "region": "四国" },
+              { "item": "高知", "value": "kochi", "region": "四国" },
+
+              { "item": "福岡", "value": "fukuoka", "region": "九州" },
+              { "item": "佐賀", "value": "saga", "region": "九州" },
+              { "item": "長崎", "value": "nagasaki", "region": "九州" },
+              { "item": "熊本", "value": "kumamoto", "region": "九州" },
+              { "item": "大分", "value": "oita", "region": "九州" },
+              { "item": "宮崎", "value": "miyazaki", "region": "九州" },
+              { "item": "鹿児島", "value": "kagoshima", "region": "九州" },
+
+              { "item": "沖縄", "value": "okinawa", "region": "沖縄" },
+
+              { "item": "その他・海外", "value": "other_foreign", "region": "その他・海外" }
+            ]
+          }
+        },
+        {
+          "item": "居住歴（小学校入学以降・1年以上）",
+          "description": "小学校入学以降、1年以上居住した都道府県を選択してください（複数選択可）",
+          "type": "checkbox",
+          "required": true,
+          "content": {
+            "min-check": 1,
+            "max-check": 49,
+            "options": [
+              { "item": "北海道", "value": "hokkaido", "region": "北海道" },
+
+              { "item": "青森", "value": "aomori", "region": "東北" },
+              { "item": "岩手", "value": "iwate", "region": "東北" },
+              { "item": "宮城", "value": "miyagi", "region": "東北" },
+              { "item": "秋田", "value": "akita", "region": "東北" },
+              { "item": "山形", "value": "yamagata", "region": "東北" },
+              { "item": "福島", "value": "fukushima", "region": "東北" },
+
+              { "item": "茨城", "value": "ibaraki", "region": "関東" },
+              { "item": "栃木", "value": "tochigi", "region": "関東" },
+              { "item": "群馬", "value": "gunma", "region": "関東" },
+              { "item": "埼玉", "value": "saitama", "region": "関東" },
+              { "item": "千葉", "value": "chiba", "region": "関東" },
+              { "item": "東京", "value": "tokyo", "region": "関東" },
+              { "item": "神奈川", "value": "kanagawa", "region": "関東" },
+
+              { "item": "新潟", "value": "niigata", "region": "中部" },
+              { "item": "富山", "value": "toyama", "region": "中部" },
+              { "item": "石川", "value": "ishikawa", "region": "中部" },
+              { "item": "福井", "value": "fukui", "region": "中部" },
+              { "item": "山梨", "value": "yamanashi", "region": "中部" },
+              { "item": "長野", "value": "nagano", "region": "中部" },
+              { "item": "岐阜", "value": "gifu", "region": "中部" },
+              { "item": "静岡", "value": "shizuoka", "region": "中部" },
+              { "item": "愛知", "value": "aichi", "region": "中部" },
+
+              { "item": "三重", "value": "mie", "region": "近畿" },
+              { "item": "滋賀", "value": "shiga", "region": "近畿" },
+              { "item": "京都", "value": "kyoto", "region": "近畿" },
+              { "item": "大阪", "value": "osaka", "region": "近畿" },
+              { "item": "兵庫", "value": "hyogo", "region": "近畿" },
+              { "item": "奈良", "value": "nara", "region": "近畿" },
+              { "item": "和歌山", "value": "wakayama", "region": "近畿" },
+
+              { "item": "鳥取", "value": "tottori", "region": "中国" },
+              { "item": "島根", "value": "shimane", "region": "中国" },
+              { "item": "岡山", "value": "okayama", "region": "中国" },
+              { "item": "広島", "value": "hiroshima", "region": "中国" },
+              { "item": "山口", "value": "yamaguchi", "region": "中国" },
+
+              { "item": "徳島", "value": "tokushima", "region": "四国" },
+              { "item": "香川", "value": "kagawa", "region": "四国" },
+              { "item": "愛媛", "value": "ehime", "region": "四国" },
+              { "item": "高知", "value": "kochi", "region": "四国" },
+
+              { "item": "福岡", "value": "fukuoka", "region": "九州" },
+              { "item": "佐賀", "value": "saga", "region": "九州" },
+              { "item": "長崎", "value": "nagasaki", "region": "九州" },
+              { "item": "熊本", "value": "kumamoto", "region": "九州" },
+              { "item": "大分", "value": "oita", "region": "九州" },
+              { "item": "宮崎", "value": "miyazaki", "region": "九州" },
+              { "item": "鹿児島", "value": "kagoshima", "region": "九州" },
+
+              { "item": "沖縄", "value": "okinawa", "region": "沖縄" },
+
+              { "item": "その他・海外", "value": "other_foreign", "region": "その他・海外" }
+            ]
+          }
+        },
+        {
+          "item": "スポーツ経験（定期的・継続的）",
+          "description": "体育の授業や体験教室、1回、2回のみの経験は含めず、地域・教室・部活動・クラブ・サークル・同好会などで、定期的に継続して取り組んだことのあるスポーツを選択してください（複数選択可）",
+          "type": "checkbox",
+          "required": true,
+          "content": {
+            "min-check": 0,
+            "max-check": 16,
+            "options": [
+              { "item": "サッカー", "value": "soccer" },
+              { "item": "ソフトボール", "value": "softball" },
+              { "item": "ハンドボール", "value": "handball" },
+              { "item": "バスケットボール", "value": "basketball" },
+              { "item": "バドミントン", "value": "badminton" },
+              { "item": "バレーボール", "value": "volleyball" },
+              { "item": "ラクロス", "value": "lacrosse" },
+              { "item": "体操", "value": "gymnastics" },
+              { "item": "剣道", "value": "kendo" },
+              { "item": "弓道", "value": "kyudo" },
+              { "item": "柔道", "value": "judo" },
+              { "item": "水泳", "value": "swimming" },
+              { "item": "野球", "value": "baseball" },
+              { "item": "陸上競技", "value": "track_field" },
+              { "item": "その他", "value": "other"}
+            ]
+          }
+        },
+        {
+          "item": "上記の条件で、他に経験したスポーツがあればご記入ください（複数可）",
+          "description": "自由記述欄です。複数ある場合は「、」で区切ってご記入ください。",
+          "type": "text",
+          "required": false,
+          "content": {
+            "placeholder": "例：空手、卓球"
+          }
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "【オノマトペについて】\n本実験で使用するオノマトペは以下の６つです。\n\n ①グッ,　②スー,　③シュッ,　④ジワジワ,　⑤チョコッ,　⑥スクウィッシュ\n\n 上記、６つのオノマトペを用いて、ボールを握る動作を指示します。",
+      "description": "これらの表現に対して、それぞれ、あなたが感じることをご回答ください。",
+      "contents": [
+        {
+          "item": "「グッ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「グッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「グッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「グッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "「グッ」という表現に感じること",
+              "description": "「グッ」という表現に感じることを、自由にご記入ください。",
+              "type": "text",
+              "required": true,
+              "content": {
+                "placeholder": "例：〇〇と思う、感じる、考える、印象を受ける。"
+              }
+            }
+          ]
+        },
+        {
+          "item": "「スー」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「スー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「スー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「スー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "「スー」という表現に感じること",
+              "description": "「スー」という表現に感じることを、自由にご記入ください。",
+              "type": "text",
+              "required": true,
+              "content": {
+                "placeholder": "例：〇〇と思う、感じる、考える、印象を受ける。"
+              }
+            }
+          ]
+        },
+        {
+          "item": "「シュッ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「シュッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「シュッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「シュッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "「シュッ」という表現に感じること",
+              "description": "「シュッ」という表現に感じることを、自由にご記入ください。",
+              "type": "text",
+              "required": true,
+              "content": {
+                "placeholder": "例：〇〇と思う、感じる、考える、印象を受ける。"
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ジワジワ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ジワジワ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ジワジワ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ジワジワ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "「ジワジワ」という表現に感じること",
+              "description": "「ジワジワ」という表現に感じることを、自由にご記入ください。",
+              "type": "text",
+              "required": true,
+              "content": {
+                "placeholder": "例：〇〇と思う、感じる、考える、印象を受ける。"
+              }
+            }
+          ]
+        },
+        {
+          "item": "「チョコッ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「チョコッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「チョコッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「チョコッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "「チョコッ」という表現に感じること",
+              "description": "「チョコッ」という表現に感じることを、自由にご記入ください。",
+              "type": "text",
+              "required": true,
+              "content": {
+                "placeholder": "例：〇〇と思う、感じる、考える、印象を受ける。"
+              }
+            }
+          ]
+        },
+        {
+          "item": "「スクウィッシュ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「スクウィッシュ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「スクウィッシュ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「スクウィッシュ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "「スクウィッシュ」という表現に感じること",
+              "description": "「スクウィッシュ」という表現に感じることを、自由にご記入ください。",
+              "type": "text",
+              "required": true,
+              "content": {
+                "placeholder": "例：〇〇と思う、感じる、考える、印象を受ける。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+# .github/workflows/deploy.yml
+name: Deploy to Sakura VPS
+
+on:
+  push:
+    branches:
+      - update/onomatopoeia-questionnaire-content
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'update/onomatopoeia-questionnaire-content'
+        type: choice
+        options:
+          - update/onomatopoeia-questionnaire-content
+          - main
+          - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup SSH key
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        
+    - name: Add VPS to known hosts
+      run: |
+        ssh-keyscan -p 2244 -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+        
+    - name: Deploy to VPS
+      run: |
+        ssh -p 2244 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+          set -e
+          
+          echo "=== Stopping nginx ==="
+          if command -v systemctl > /dev/null 2>&1; then
+            sudo systemctl stop nginx || echo "Failed to stop nginx, continuing..."
+          else
+            sudo service nginx stop || echo "Failed to stop nginx, continuing..."
+          fi
+          
+          echo "=== Updating repository ==="
+          cd ${{ secrets.REPO_PATH }}
+          
+          # Check if it's a git repository, if not, clone it
+          if [ ! -d ".git" ]; then
+            echo "Cloning repository..."
+            cd ..
+            rm -rf $(basename ${{ secrets.REPO_PATH }})
+            git clone git@github-deploy:KikuchiTomo/tmu-research.git $(basename ${{ secrets.REPO_PATH }})
+            cd ${{ secrets.REPO_PATH }}
+          else
+            echo "Updating existing repository..."
+            git fetch origin
+          fi
+          
+          # Use the selected branch from workflow_dispatch or default to the pushed branch
+          BRANCH="${{ github.event.inputs.branch || 'update/onomatopoeia-questionnaire-content' }}"
+          echo "Deploying branch: $BRANCH"
+          
+          git checkout $BRANCH
+          git pull origin $BRANCH
+          
+          echo "=== Starting nginx ==="
+          if command -v systemctl > /dev/null 2>&1; then
+            sudo systemctl start nginx || echo "Failed to start nginx"
+          else
+            sudo service nginx start || echo "Failed to start nginx"
+          fi
+          
+          echo "=== Checking nginx status ==="
+          # Use non-sudo methods to check nginx status
+          if pgrep nginx > /dev/null; then
+            echo "✓ nginx is running"
+          else
+            echo "✗ nginx is not running"
+          fi
+          
+          # Additional check using curl (if website is accessible)
+          if command -v curl > /dev/null 2>&1; then
+            if curl -s -f http://localhost > /dev/null; then
+              echo "✓ nginx is responding to HTTP requests"
+            else
+              echo "! nginx HTTP check failed (this might be normal)"
+            fi
+          fi
+          
+          echo "=== Deployment completed ==="
+        EOF

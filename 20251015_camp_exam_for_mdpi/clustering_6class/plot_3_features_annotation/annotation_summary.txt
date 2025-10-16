@@ -1,0 +1,68 @@
+=== Annotation-based Feature Data Summary ===
+Generated: 2025-08-04 20:02:32
+
+【センサーデータ統計】
+Total samples: 714
+Features shape: (714, 3)
+Unique persons: 7
+Unique labels: 33
+Sessions: [1, 2, 3]
+
+【被験者別サンプル数】
+  1: 102 samples
+  2: 102 samples
+  3: 102 samples
+  4: 102 samples
+  5: 102 samples
+  6: 102 samples
+  8: 102 samples
+
+【オノマトペ別サンプル数】
+  Max: 42 samples
+  きゅっ: 21 samples
+  ぎゅぎゅっ: 21 samples
+  ぎゅっ: 21 samples
+  ぎゅーぎゅー: 21 samples
+  ぐいぐい: 21 samples
+  ぐいっ（ぐい）: 21 samples
+  ぐん: 21 samples
+  ぐんぐん: 21 samples
+  ささっ: 21 samples
+  さっ: 21 samples
+  しっかり: 21 samples
+  じりじり: 21 samples
+  じわじわ: 21 samples
+  すっ: 21 samples
+  ずんずん: 21 samples
+  ちゃっ: 21 samples
+  ちょこちょこ: 21 samples
+  ちょこっ: 21 samples
+  ちょこん: 21 samples
+  ちょんちょん: 21 samples
+  ぬっ: 21 samples
+  ぱぱっ: 21 samples
+  ぴょこん: 21 samples
+  ぴん: 21 samples
+  ふにゃ（ふにゃふにゃ）: 21 samples
+  へな（へなへな）: 21 samples
+  むぎゅっ: 21 samples
+  ググッ: 21 samples
+  グッ: 21 samples
+  シュッ: 21 samples
+  スー: 21 samples
+  チョコッ: 21 samples
+
+【正規化済み特徴量統計】
+Power - min: 0.0000, max: 1.0000, mean: 0.4922
+Time  - min: 0.0000, max: 1.0000, mean: 0.3395
+Speed - min: 0.0000, max: 1.0000, mean: 0.7021
+
+【アンケートデータ統計】
+Participants: 7
+  1: 32 onomatopoeia
+  2: 32 onomatopoeia
+  4: 32 onomatopoeia
+  8: 32 onomatopoeia
+  6: 32 onomatopoeia
+  3: 32 onomatopoeia
+  5: 32 onomatopoeia

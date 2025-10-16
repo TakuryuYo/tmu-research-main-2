@@ -1,0 +1,3 @@
+unixtime, personID, onomatopeiaID, session, talk_tone, talk_speed, display
+1758417067275, R, -1, 1, 0, 0, True
+unixtime(ms), ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8

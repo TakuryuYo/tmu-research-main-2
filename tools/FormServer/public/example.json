@@ -1,0 +1,153 @@
+{
+	"title": "フォームのテスト用のjsonです",
+	"description": "説明を記入できます!\n改行もできます",
+	"contact": "連絡先を記入できます\n改行もできます",
+	"contents": [
+		{
+			"type": "section",
+			"title": "セクション1",
+			"description": "質問をセクションで区切ることができます． contentsの中に実際の項目を定義します！",
+			"contents": [
+				{
+					"item": "記入フォーム1",
+					"description": "項目１の説明 (type: textとすることで任意文字の列の入力が可能な項目になる) required: trueにすると回答が必須になります．",
+					"type": "text",
+					"required": true,
+					"content": {
+						"placeholder": "例：23"
+					}
+				},
+				{
+					"item": "セレクト1",
+					"description": "選択(ラジオボタン式)で，択一の選択肢の定義をします, idにはアスキー文字列しか指定できない，かつ，全体のフォームの中でユニークな値である必要がありますので注意してください．",
+					"type": "selection",
+					"required": true,
+					"content": {
+						"options": [
+							{
+								"item": "A",
+								"value": "ida"
+							},
+							{
+								"item": "B",
+								"value": "idb"
+							},
+							{
+								"item": "C",
+								"value": "idc"
+							},
+							{
+								"item": "D",
+								"value": "idf"
+							}
+						]
+					}
+				},
+				{
+					"item": "複数選択１",
+					"description": "チェックボックス式の複数選択が可能なものです．",
+					"type": "checkbox",
+					"required": true,
+					"content": {
+						"options": [
+							{
+								"item": "A",
+								"value": "ch-a"
+							},
+							{
+								"item": "B",
+								"value": "ch-b"
+							},
+							{
+								"item": "C",
+								"value": "ch-c"
+							},
+							{
+								"item": "D",
+								"value": "ch-d"
+							}
+						]
+					}
+				},
+				{
+					"item": "複数選択２",
+					"description": "チェックボックス式の複数選択が可能なものです．min-check/max-checkで選択数の上限・下限を設定できます",
+					"type": "checkbox",
+					"required": true,
+					"content": {
+						"min-check": 1,
+						"max-check": 3,
+						"options": [
+							{
+								"item": "A",
+								"value": "ch-a"
+							},
+							{
+								"item": "B",
+								"value": "ch-b"
+							},
+							{
+								"item": "C",
+								"value": "ch-c"
+							},
+							{
+								"item": "D",
+								"value": "ch-d"
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type": "section",
+			"title": "セクション2",
+			"description": "二つ目のセクション",
+			"contents": [
+				{
+					"item": "グループ",
+					"description": "セクション内にさらにグループを定義できます",
+					"type": "group",
+					"required": true,
+					"contents": [
+						{
+							"item": "スライダー１",
+							"description": "スライダーを設定できます！",
+							"type": "slider",
+							"required": true,
+							"content": {
+								"max-title": "ウマッドマックス!",
+								"min-title": "まず...",
+								"max-value": 100,
+								"min-value": 0
+							}
+						},
+						{
+							"item": "スライダー2",
+							"type": "slider",
+							"required": true,
+							"content": {
+								"max-title": "最大",
+								"min-title": "最小",
+								"max-value": 100,
+								"min-value": 0
+							}
+						}
+					]
+				},
+				{
+					"item": "スライダーを直接配置",
+					"description": "グループ内でなくてもOK",
+					"type": "slider",
+					"required": true,
+					"content": {
+						"max-title": "何だこれ！",
+						"min-title": "最小の値ですこれが",
+						"max-value": 100,
+						"min-value": 0
+					}
+				}
+			]
+		}
+	]
+}

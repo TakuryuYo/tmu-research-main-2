@@ -1,0 +1,1526 @@
+{
+  "title": "オノマトペアンケート（多くてごめんなさい。）",
+  "description": "オノマトペ（擬音語・擬態語）に関するアンケートにご協力ください。\n\n東京都立大学下川原研究室",
+  "contact": "倫理審査承認番号XXX（承認日：2025年6月30日）\n本実験に関するお問い合わせ：yoshinaga-yuki@ed.tmu.ac.jp（吉永）",
+  "contents": [
+    {
+      "type": "section",
+      "title": "【あなたについて】",
+      "description": "以下の質問にご回答ください。",
+      "contents": [
+        {
+          "item": "年齢",
+          "description": "今日現在のご年齢を半角数値で入力してください。例：23",
+          "type": "text",
+          "required": true,
+          "content": {
+            "placeholder": "例：23"
+          }
+        },
+        {
+          "item": "性別",
+          "description": "最も該当するものを選択してください",
+          "type": "selection",
+          "required": true,
+          "content": {
+            "options": [
+              { "item": "男性", "value": "male" },
+              { "item": "女性", "value": "female" },
+              { "item": "わからない/その他", "value": "other" },
+              { "item": "回答しない", "value": "no_answer" }
+            ]
+          }
+        },
+        {
+          "item": "利き手",
+          "description": "ご自身の利き手を選択してください",
+          "type": "selection",
+          "required": true,
+          "content": {
+            "options": [
+              { "item": "右利き", "value": "right" },
+              { "item": "左利き", "value": "left" },
+              { "item": "両利き", "value": "both" },
+              { "item": "わからない／その他", "value": "other" }
+            ]
+          }
+        },
+        {
+          "item": "出身地",
+          "description": "ご自身の都道府県を選択してください（複数考えられる場合は、複数選択可能です。）",
+          "type": "checkbox",
+          "required": true,
+          "content": {
+            "min-check": 1,
+            "max-check": 49,
+            "options": [
+              { "item": "北海道", "value": "hokkaido", "region": "北海道" },
+              { "item": "青森", "value": "aomori", "region": "東北" },
+              { "item": "岩手", "value": "iwate", "region": "東北" },
+              { "item": "宮城", "value": "miyagi", "region": "東北" },
+              { "item": "秋田", "value": "akita", "region": "東北" },
+              { "item": "山形", "value": "yamagata", "region": "東北" },
+              { "item": "福島", "value": "fukushima", "region": "東北" },
+              { "item": "茨城", "value": "ibaraki", "region": "関東" },
+              { "item": "栃木", "value": "tochigi", "region": "関東" },
+              { "item": "群馬", "value": "gunma", "region": "関東" },
+              { "item": "埼玉", "value": "saitama", "region": "関東" },
+              { "item": "千葉", "value": "chiba", "region": "関東" },
+              { "item": "東京", "value": "tokyo", "region": "関東" },
+              { "item": "神奈川", "value": "kanagawa", "region": "関東" },
+              { "item": "新潟", "value": "niigata", "region": "中部" },
+              { "item": "富山", "value": "toyama", "region": "中部" },
+              { "item": "石川", "value": "ishikawa", "region": "中部" },
+              { "item": "福井", "value": "fukui", "region": "中部" },
+              { "item": "山梨", "value": "yamanashi", "region": "中部" },
+              { "item": "長野", "value": "nagano", "region": "中部" },
+              { "item": "岐阜", "value": "gifu", "region": "中部" },
+              { "item": "静岡", "value": "shizuoka", "region": "中部" },
+              { "item": "愛知", "value": "aichi", "region": "中部" },
+              { "item": "三重", "value": "mie", "region": "近畿" },
+              { "item": "滋賀", "value": "shiga", "region": "近畿" },
+              { "item": "京都", "value": "kyoto", "region": "近畿" },
+              { "item": "大阪", "value": "osaka", "region": "近畿" },
+              { "item": "兵庫", "value": "hyogo", "region": "近畿" },
+              { "item": "奈良", "value": "nara", "region": "近畿" },
+              { "item": "和歌山", "value": "wakayama", "region": "近畿" },
+              { "item": "鳥取", "value": "tottori", "region": "中国" },
+              { "item": "島根", "value": "shimane", "region": "中国" },
+              { "item": "岡山", "value": "okayama", "region": "中国" },
+              { "item": "広島", "value": "hiroshima", "region": "中国" },
+              { "item": "山口", "value": "yamaguchi", "region": "中国" },
+              { "item": "徳島", "value": "tokushima", "region": "四国" },
+              { "item": "香川", "value": "kagawa", "region": "四国" },
+              { "item": "愛媛", "value": "ehime", "region": "四国" },
+              { "item": "高知", "value": "kochi", "region": "四国" },
+              { "item": "福岡", "value": "fukuoka", "region": "九州" },
+              { "item": "佐賀", "value": "saga", "region": "九州" },
+              { "item": "長崎", "value": "nagasaki", "region": "九州" },
+              { "item": "熊本", "value": "kumamoto", "region": "九州" },
+              { "item": "大分", "value": "oita", "region": "九州" },
+              { "item": "宮崎", "value": "miyazaki", "region": "九州" },
+              { "item": "鹿児島", "value": "kagoshima", "region": "九州" },
+              { "item": "沖縄", "value": "okinawa", "region": "沖縄" },
+              { "item": "その他・海外", "value": "other_foreign", "region": "その他・海外" }
+            ]
+          }
+        },
+        {
+          "item": "居住歴（小学校入学以降・1年以上）",
+          "description": "小学校入学以降、1年以上居住した都道府県を選択してください（複数選択可）",
+          "type": "checkbox",
+          "required": true,
+          "content": {
+            "min-check": 1,
+            "max-check": 49,
+            "options": [
+              { "item": "北海道", "value": "hokkaido", "region": "北海道" },
+              { "item": "青森", "value": "aomori", "region": "東北" },
+              { "item": "岩手", "value": "iwate", "region": "東北" },
+              { "item": "宮城", "value": "miyagi", "region": "東北" },
+              { "item": "秋田", "value": "akita", "region": "東北" },
+              { "item": "山形", "value": "yamagata", "region": "東北" },
+              { "item": "福島", "value": "fukushima", "region": "東北" },
+              { "item": "茨城", "value": "ibaraki", "region": "関東" },
+              { "item": "栃木", "value": "tochigi", "region": "関東" },
+              { "item": "群馬", "value": "gunma", "region": "関東" },
+              { "item": "埼玉", "value": "saitama", "region": "関東" },
+              { "item": "千葉", "value": "chiba", "region": "関東" },
+              { "item": "東京", "value": "tokyo", "region": "関東" },
+              { "item": "神奈川", "value": "kanagawa", "region": "関東" },
+              { "item": "新潟", "value": "niigata", "region": "中部" },
+              { "item": "富山", "value": "toyama", "region": "中部" },
+              { "item": "石川", "value": "ishikawa", "region": "中部" },
+              { "item": "福井", "value": "fukui", "region": "中部" },
+              { "item": "山梨", "value": "yamanashi", "region": "中部" },
+              { "item": "長野", "value": "nagano", "region": "中部" },
+              { "item": "岐阜", "value": "gifu", "region": "中部" },
+              { "item": "静岡", "value": "shizuoka", "region": "中部" },
+              { "item": "愛知", "value": "aichi", "region": "中部" },
+              { "item": "三重", "value": "mie", "region": "近畿" },
+              { "item": "滋賀", "value": "shiga", "region": "近畿" },
+              { "item": "京都", "value": "kyoto", "region": "近畿" },
+              { "item": "大阪", "value": "osaka", "region": "近畿" },
+              { "item": "兵庫", "value": "hyogo", "region": "近畿" },
+              { "item": "奈良", "value": "nara", "region": "近畿" },
+              { "item": "和歌山", "value": "wakayama", "region": "近畿" },
+              { "item": "鳥取", "value": "tottori", "region": "中国" },
+              { "item": "島根", "value": "shimane", "region": "中国" },
+              { "item": "岡山", "value": "okayama", "region": "中国" },
+              { "item": "広島", "value": "hiroshima", "region": "中国" },
+              { "item": "山口", "value": "yamaguchi", "region": "中国" },
+              { "item": "徳島", "value": "tokushima", "region": "四国" },
+              { "item": "香川", "value": "kagawa", "region": "四国" },
+              { "item": "愛媛", "value": "ehime", "region": "四国" },
+              { "item": "高知", "value": "kochi", "region": "四国" },
+              { "item": "福岡", "value": "fukuoka", "region": "九州" },
+              { "item": "佐賀", "value": "saga", "region": "九州" },
+              { "item": "長崎", "value": "nagasaki", "region": "九州" },
+              { "item": "熊本", "value": "kumamoto", "region": "九州" },
+              { "item": "大分", "value": "oita", "region": "九州" },
+              { "item": "宮崎", "value": "miyazaki", "region": "九州" },
+              { "item": "鹿児島", "value": "kagoshima", "region": "九州" },
+              { "item": "沖縄", "value": "okinawa", "region": "沖縄" },
+              { "item": "その他・海外", "value": "other_foreign", "region": "その他・海外" }
+            ]
+          }
+        },
+        {
+          "item": "スポーツ経験（定期的・継続的）",
+          "description": "体育の授業や体験教室、1回、2回のみの経験は含めず、地域・教室・部活動・クラブ・サークル・同好会などで、定期的に継続して取り組んだことのあるスポーツを選択してください（複数選択可）",
+          "type": "checkbox",
+          "required": true,
+          "content": {
+            "min-check": 0,
+            "max-check": 16,
+            "options": [
+              { "item": "サッカー", "value": "soccer" },
+              { "item": "ソフトボール", "value": "softball" },
+              { "item": "ハンドボール", "value": "handball" },
+              { "item": "バスケットボール", "value": "basketball" },
+              { "item": "バドミントン", "value": "badminton" },
+              { "item": "バレーボール", "value": "volleyball" },
+              { "item": "ラクロス", "value": "lacrosse" },
+              { "item": "体操", "value": "gymnastics" },
+              { "item": "剣道", "value": "kendo" },
+              { "item": "弓道", "value": "kyudo" },
+              { "item": "柔道", "value": "judo" },
+              { "item": "水泳", "value": "swimming" },
+              { "item": "野球", "value": "baseball" },
+              { "item": "陸上競技", "value": "track_field" },
+              { "item": "その他", "value": "other"}
+            ]
+          }
+        },
+        {
+          "item": "上記の条件で、他に経験したスポーツがあればご記入ください（複数可）",
+          "description": "自由記述欄です。複数ある場合は「、」で区切ってご記入ください。",
+          "type": "text",
+          "required": false,
+          "content": {
+            "placeholder": "例：空手、卓球"
+          }
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "【オノマトペについて】\n本実験で使用するオノマトペは以下の34語です。\n\n ①ちょこん ②ぴょこん ③ぐいっ（ぐい） ④ぐいぐい ⑤きゅっ ⑥ぎゅっ ⑦ぎゅーぎゅー ⑧ぬっ ⑨すっ ⑩むぎゅっ ⑪ふにゃ（ふにゃふにゃ） ⑫へな（へなへな） ⑬ささっ ⑭ちゃっ ⑮ぱぱっ ⑯さっ ⑰グッ ⑱ちょこっ ⑲ぐん ⑳ちょこちょこ ㉑ずんずん ㉒じりじり ㉓じわじわ ㉔ぴん ㉕チョコッ ㉖スー ㉗シュッ ㉘ググッ ㉙ちょんちょん ㉚ぐんぐん ㉛しっかり ㉜ぎゅぎゅっ\n\n 上記34語のオノマトペを用いて、ボールを握る動作を指示します。",
+      "description": "これらの表現に対して、それぞれ、あなたが感じることをご回答ください。",
+      "contents": [
+        {
+          "item": "「ちょこん」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ちょこん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ちょこん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ちょこん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぴょこん」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぴょこん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぴょこん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぴょこん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぐいっ（ぐい）」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぐいっ（ぐい）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぐいっ（ぐい）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぐいっ（ぐい）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぐいぐい」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぐいぐい」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぐいぐい」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぐいぐい」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「きゅっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「きゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「きゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「きゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぎゅっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぎゅーぎゅー」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぎゅーぎゅー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぎゅーぎゅー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぎゅーぎゅー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぬっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぬっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぬっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぬっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「すっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「すっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「すっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「すっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「むぎゅっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「むぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「むぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「むぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ふにゃ（ふにゃふにゃ）」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ふにゃ（ふにゃふにゃ）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ふにゃ（ふにゃふにゃ）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ふにゃ（ふにゃふにゃ）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「へな（へなへな）」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「へな（へなへな）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「へな（へなへな）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「へな（へなへな）」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ささっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ささっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ささっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ささっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ちゃっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ちゃっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ちゃっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ちゃっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぱぱっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぱぱっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぱぱっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぱぱっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「さっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「さっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「さっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「さっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「グッ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「グッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「グッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「グッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ちょこっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ちょこっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ちょこっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ちょこっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぐん」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぐん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぐん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぐん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ちょこちょこ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ちょこちょこ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ちょこちょこ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ちょこちょこ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ずんずん」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ずんずん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ずんずん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ずんずん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「じりじり」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「じりじり」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「じりじり」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「じりじり」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「じわじわ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「じわじわ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「じわじわ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「じわじわ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぴん」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぴん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぴん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぴん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「チョコッ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「チョコッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「チョコッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「チョコッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「スー」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「スー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「スー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「スー」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「シュッ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「シュッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「シュッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「シュッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ググッ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ググッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ググッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ググッ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ちょんちょん」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ちょんちょん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ちょんちょん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ちょんちょん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぐんぐん」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぐんぐん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぐんぐん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぐんぐん」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「しっかり」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「しっかり」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「しっかり」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「しっかり」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        },
+        {
+          "item": "「ぎゅぎゅっ」という表現について",
+          "description": "スライドバーをドラッグしてご回答ください。",
+          "type": "group",
+          "required": true,
+          "contents": [
+            {
+              "item": "”パワー” の度合い： 「ぎゅぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど全力",
+                "min-title": "全く力をかけない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”スピード” の度合い： 「ぎゅぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "これ以上ないほど高速",
+                "min-title": "全く動かない",
+                "max-value": 100,
+                "min-value": 0
+              }
+            },
+            {
+              "item": "”時間の長さ（持続性）” の度合い： 「ぎゅぎゅっ」",
+              "type": "slider",
+              "required": true,
+              "content": {
+                "max-title": "とても長い時間",
+                "min-title": "瞬間、一瞬",
+                "max-value": 100,
+                "min-value": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

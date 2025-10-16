@@ -1,0 +1,58 @@
+=== センサー特徴量2Dプロット概要 ===
+
+【データ概要】
+総サンプル数: 714
+被験者数: 7
+セッション数: 3
+オノマトペ数: 33
+
+【被験者一覧】
+  ID 1: person_1 (102 samples)
+  ID 2: person_2 (102 samples)
+  ID 3: person_3 (102 samples)
+  ID 4: person_4 (102 samples)
+  ID 5: person_5 (102 samples)
+  ID 6: person_6 (102 samples)
+  ID 8: person_8 (102 samples)
+
+【セッション一覧】
+  Session 1: 238 samples
+  Session 2: 238 samples
+  Session 3: 238 samples
+
+【プロット構成】
+各プロットは3つのサブプロット構成:
+  1. Power vs Duration (左)
+  2. Duration vs Speed (中央)
+  3. Power vs Speed (右)
+
+【出力ファイル構成】
+session_01/
+  person_1_session_01.png
+  person_2_session_01.png
+  person_3_session_01.png
+  person_4_session_01.png
+  person_5_session_01.png
+  person_6_session_01.png
+  person_8_session_01.png
+session_02/
+  person_1_session_02.png
+  person_2_session_02.png
+  person_3_session_02.png
+  person_4_session_02.png
+  person_5_session_02.png
+  person_6_session_02.png
+  person_8_session_02.png
+session_03/
+  person_1_session_03.png
+  person_2_session_03.png
+  person_3_session_03.png
+  person_4_session_03.png
+  person_5_session_03.png
+  person_6_session_03.png
+  person_8_session_03.png
+
+【特徴量説明】
+Power: 信号の最大値を正規化 (0-1)
+Duration: アノテーション範囲の時間長を正規化 (0-1)
+Speed: 最大値到達までの時間を逆転・正規化 (0-1, 小さいほど速い)

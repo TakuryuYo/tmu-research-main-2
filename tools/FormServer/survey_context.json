@@ -1,0 +1,23 @@
+{
+  "title": "オノマトペアンケート（多くてごめんなさい。）",
+  "description": "オノマトペ（擬音語・擬態語）に関するアンケートにご協力ください。\n\n東京都立大学下川原研究室",
+  "contact": "倫理審査承認番号XXX（承認日：2025年6月30日）\n本実験に関するお問い合わせ：yoshinaga-yuki@ed.tmu.ac.jp（吉永）",
+  "contents": [
+    {
+      "type": "section",
+      "title": "【あなたについて】",
+      "description": "以下の質問にご回答ください。",
+      "contents": [
+         {
+          "item": "年齢",
+          "description": "今日現在のご年齢を半角数値で入力してください。例：23",
+          "type": "text",
+          "required": true,
+          "content": {
+            "placeholder": "例：23"
+          }
+        }
+      ]
+    }
+  ]
+}
