@@ -156,14 +156,41 @@ class MaxSpeedWaveformAnnotator(WaveformAnnotator):
 
         segment = signal[start_idx:end_idx + 1]
         sampling_rate = self._get_sampling_rate(sample)
-        nyquist = self._get_nyquist(sample, sampling_rate)
+        # nyquist = self._get_nyquist(sample, sampling_rate)  # commented out per request
+
+        window_signal = segment
+        normalized_axis = None
+        x_label = "Time [ms]"
+        total_ms = None
+        left_idx = start_idx
+        max_pos = sample.get("metadata", {}).get("max_pos")
+        if max_pos is None:
+            max_pos = sample.get("target_peak_position")
 
         if sampling_rate and sampling_rate > 0:
-            time_axis = np.arange(segment.size) / sampling_rate
-            x_label = "Time [s]"
+            window_samples = max(1, int(round(sampling_rate * 10)))
+            total_ms = 10000.0
+
+            left_idx = max_pos - window_samples // 2 if max_pos is not None else start_idx
+            right_idx = left_idx + window_samples
+
+            window_signal = np.zeros(window_samples, dtype=float)
+            src_start = max(0, left_idx)
+            src_end = min(right_idx, len(signal))
+            dest_start = max(0, src_start - left_idx)
+            dest_end = dest_start + (src_end - src_start)
+            if dest_end > dest_start:
+                window_signal[dest_start:dest_end] = signal[src_start:src_end]
+
+            normalized_axis = np.linspace(0.0, 1.0, window_samples, endpoint=False)
         else:
-            time_axis = np.arange(segment.size)
-            x_label = "Sample Index"
+            window_signal = segment
+            window_samples = len(window_signal)
+            total_ms = float(window_samples)
+            if window_samples == 0:
+                print("Warning: Empty segment encountered; skipping plot export.")
+                return
+            normalized_axis = np.linspace(0.0, 1.0, window_samples, endpoint=False)
 
         person_label = sample.get("person_display") or sample.get("person") or "unknown_person"
         label_name = sample.get("label_name") or "unknown_label"
@@ -177,33 +204,44 @@ class MaxSpeedWaveformAnnotator(WaveformAnnotator):
         plot_filename = f"{safe_person}_session{session}_{safe_label}_{safe_file}_{start_idx}-{end_idx}.png"
         output_path = os.path.join(self.plots_fig_dir, plot_filename)
 
-        info_lines = []
-        if sampling_rate and sampling_rate > 0:
-            info_lines.append(f"Sampling frequency: {sampling_rate:.2f} Hz")
-        else:
-            info_lines.append("Sampling frequency: Unknown")
-        if nyquist and nyquist > 0:
-            info_lines.append(f"Nyquist frequency: {nyquist:.2f} Hz")
-        else:
-            info_lines.append("Nyquist frequency: Unknown")
+        # info_lines = []
+        # if sampling_rate and sampling_rate > 0:
+        #     info_lines.append(f"Sampling frequency: {sampling_rate:.2f} Hz")
+        # else:
+        #     info_lines.append("Sampling frequency: Unknown")
+        # if nyquist and nyquist > 0:
+        #     info_lines.append(f"Nyquist frequency: {nyquist:.2f} Hz")
+        # else:
+        #     info_lines.append("Nyquist frequency: Unknown")
 
         fig, ax = plt.subplots(figsize=(10, 4))
-        ax.plot(time_axis, segment, color='tab:blue', linewidth=1.5)
+        ax.plot(normalized_axis, window_signal, color='tab:blue', linewidth=1.5)
         ax.set_title(f"{person_label} | {label_name} | {filename}")
         ax.set_xlabel(x_label)
         ax.set_ylabel("Amplitude")
         ax.grid(True, alpha=0.3)
-        ax.text(
-            0.01,
-            0.95,
-            "\n".join(info_lines),
-            transform=ax.transAxes,
-            fontsize=10,
-            verticalalignment="top",
-            bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.6),
-        )
-        ax.axvline(time_axis[0], color='green', linestyle='--', linewidth=1.2, label='Start')
-        ax.axvline(time_axis[-1], color='red', linestyle='--', linewidth=1.2, label='End')
+        ax.set_xlim(0.0, 1.0)
+
+        ticks = [0.0, 0.25, 0.5, 0.75, 1.0]
+        if total_ms is not None:
+            ax.set_xticks(ticks)
+            ax.set_xticklabels([f"{t * total_ms:.0f}" for t in ticks])
+        ax.set_xlabel("Time [ms]")
+
+        if sampling_rate and sampling_rate > 0:
+            start_coord = np.clip((start_idx - left_idx) / window_samples, 0.0, 1.0)
+            end_coord = np.clip((end_idx - left_idx) / window_samples, 0.0, 1.0)
+            max_coord = np.clip((max_pos - left_idx) / window_samples, 0.0, 1.0) if max_pos is not None else None
+        else:
+            start_coord = 0.0
+            end_coord = 1.0
+            max_coord = 0.5 if max_pos is not None else None
+
+        ax.axvline(start_coord, color='green', linestyle='--', linewidth=1.2, label='Start')
+        ax.axvline(end_coord, color='red', linestyle='--', linewidth=1.2, label='End')
+        if max_coord is not None:
+            ax.axvline(max_coord, color='orange', linestyle=':', linewidth=1.2, label='Max')
+
         ax.legend(loc='upper right')
 
         fig.tight_layout()
