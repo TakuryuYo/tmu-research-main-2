@@ -46,7 +46,8 @@ plt.ioff()
 matplotlib.rcParams['savefig.directory'] = ''
 matplotlib.rcParams['interactive'] = False
 matplotlib.rcParams['toolbar'] = 'None'
-matplotlib.rcParams['figure.raise_window'] = False
+if 'figure.raise_window' in matplotlib.rcParams:
+    matplotlib.rcParams['figure.raise_window'] = False
 
 # 存在するキーマップのみ無効化
 try:
@@ -228,13 +229,19 @@ class WaveformAnnotator:
                         reader = csv.DictReader(f)
                         for row in reader:
                             # 数値フィールドを適切な型に変換
+                            start_raw_value = row.get('start_raw')
+                            end_raw_value = row.get('end_raw')
+
                             annotation = {
                                 'sample_index': int(row['sample_index']),
                                 'person_id': row['person_id'],
+                                'person_display': row.get('person_display', 'Unknown'),
                                 'label_name': row['label_name'],
                                 'session': int(row['session']),
                                 'start_pos': int(row['start_pos']),
                                 'end_pos': int(row['end_pos']),
+                                'start_raw': float(start_raw_value) if start_raw_value not in (None, '') else None,
+                                'end_raw': float(end_raw_value) if end_raw_value not in (None, '') else None,
                                 'power_raw': float(row['power_raw']),
                                 'time_raw': int(row['time_raw']),
                                 'speed_raw': int(row['speed_raw']),
@@ -293,6 +300,10 @@ class WaveformAnnotator:
         # 3. Speed特徴量: 最大値地点 - a地点 の時間差分
         max_pos = np.argmax(np.abs(signal))
         speed_raw = abs(max_pos - start_pos)  # 絶対値を取る
+
+        # 4. Start/End raw amplitude values
+        start_raw = float(signal[start_pos])
+        end_raw = float(signal[end_pos])
         
         return {
             'power_raw': power_raw,
@@ -300,7 +311,9 @@ class WaveformAnnotator:
             'speed_raw': speed_raw,
             'max_pos': max_pos,
             'start_pos': start_pos,
-            'end_pos': end_pos
+            'end_pos': end_pos,
+            'start_raw': start_raw,
+            'end_raw': end_raw
         }
     
     def plot_current_data(self):
@@ -457,6 +470,8 @@ class WaveformAnnotator:
             'session': current_data.get('session', 'Unknown'),
             'start_pos': self.start_pos,
             'end_pos': self.end_pos,
+            'start_raw': features['start_raw'],
+            'end_raw': features['end_raw'],
             'power_raw': features['power_raw'],
             'time_raw': features['time_raw'],
             'speed_raw': features['speed_raw'],
@@ -493,7 +508,7 @@ class WaveformAnnotator:
         
         # CSVファイルに保存
         fieldnames = ['sample_index', 'person_id', 'person_display', 'label_name', 'session', 
-                     'start_pos', 'end_pos', 'max_pos', 'signal_length',
+                     'start_pos', 'end_pos', 'start_raw', 'end_raw', 'max_pos', 'signal_length',
                      'power_raw', 'time_raw', 'speed_raw', 'timestamp']
         
         with open(filepath, 'w', newline='', encoding='utf-8') as csvfile:
@@ -616,7 +631,7 @@ class WaveformAnnotator:
         
         # CSVファイルに保存
         fieldnames = ['sample_index', 'person_id', 'person_display', 'label_name', 'session', 
-                     'start_pos', 'end_pos', 'max_pos', 'signal_length',
+                     'start_pos', 'end_pos', 'start_raw', 'end_raw', 'max_pos', 'signal_length',
                      'power_raw', 'time_raw', 'speed_raw',
                      'power_normalized', 'time_normalized', 'speed_normalized',
                      'timestamp']

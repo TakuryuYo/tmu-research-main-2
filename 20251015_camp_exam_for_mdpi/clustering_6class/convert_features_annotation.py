@@ -84,10 +84,13 @@ def load_annotation_results(annotation_dir='../annotation/annotation_results/ind
                     annotation = {
                         'sample_index': int(row['sample_index']),
                         'person_id': row['person_id'],
+                        'person_display': row.get('person_display', 'Unknown'),
                         'label_name': row['label_name'],
                         'session': int(row['session']),
                         'start_pos': int(row['start_pos']),
                         'end_pos': int(row['end_pos']),
+                        'start_raw': float(row['start_raw']) if row.get('start_raw') not in (None, '') else None,
+                        'end_raw': float(row['end_raw']) if row.get('end_raw') not in (None, '') else None,
                         'power_raw': float(row['power_raw']),
                         'time_raw': int(row['time_raw']),
                         'speed_raw': int(row['speed_raw']),
