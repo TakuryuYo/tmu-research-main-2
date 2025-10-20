@@ -11,6 +11,7 @@
 - 'r': アノテーションをやり直し
 - 'p': 前のデータへ
 - 'q': 終了
+- 't': throwフラグをトグル (0↔1)
 
 特徴量:
 1. Power: 最大値をMaxデータで正規化 (0-1)
@@ -20,6 +21,7 @@
 
 import numpy as np
 import matplotlib
+import re
 # バックエンドを設定してダイアログを無効化
 def setup_matplotlib_backend():
     """利用可能なバックエンドを自動選択"""
@@ -94,6 +96,7 @@ class WaveformAnnotator:
         self.current_index = 0
         self.start_pos = None
         self.end_pos = None
+        self.current_throw = 0
         
         # マウス位置とイベント管理
         self.mouse_x = 0
@@ -208,6 +211,55 @@ class WaveformAnnotator:
         
         filename = f"sample{sample_index:04d}_{person_display}_session{session}_{label_name}_id{label_id:02d}.csv"
         return filename
+
+    def determine_trial_num(self, sample_data):
+        """
+        試行番号 (session-1 or session-2) を算出
+        pre -> 1, post -> 2, 判別できなければ 0 とする
+        """
+        session_value = sample_data.get('session')
+        try:
+            session_int = int(session_value)
+            session_str = str(session_int)
+        except (TypeError, ValueError):
+            session_str = str(session_value) if session_value is not None else 'unknown'
+        
+        filename = str(sample_data.get('filename', '')).lower()
+        trial_code = 0
+        if filename:
+            if re.search(r'(^|[-_])pre(?=($|[-_.]))', filename):
+                trial_code = 1
+            elif re.search(r'(^|[-_])post(?=($|[-_.]))', filename):
+                trial_code = 2
+        
+        return f"{session_str}-{trial_code}"
+    
+    def get_annotation_for_index(self, sample_index):
+        """指定インデックスの既存アノテーションを取得"""
+        for ann in self.annotations:
+            if ann['sample_index'] == sample_index:
+                return ann
+        return None
+
+    def determine_prepos(self, sample_data):
+        """
+        ファイル名から pre/post を推定
+        
+        Returns:
+            str: 'pre', 'post', または ''（判別できない場合）
+        """
+        filename = sample_data.get('filename')
+        if not filename:
+            return ''
+        stem = Path(filename).stem.lower()
+        if stem.endswith('pre'):
+            return 'pre'
+        if stem.endswith('post'):
+            return 'post'
+        match = re.search(r'(^|[-_])(pre|post)(?=($|[-_.]))', stem)
+        if match:
+            return match.group(2)
+        return ''
     
     def load_existing_annotations(self):
         """既存のアノテーションファイルを読み込み（再開機能）"""
@@ -238,6 +290,7 @@ class WaveformAnnotator:
                                 'person_display': row.get('person_display', 'Unknown'),
                                 'label_name': row['label_name'],
                                 'session': int(row['session']),
+                                'prepos': row.get('prepos', ''),
                                 'start_pos': int(row['start_pos']),
                                 'end_pos': int(row['end_pos']),
                                 'start_raw': float(start_raw_value) if start_raw_value not in (None, '') else None,
@@ -247,8 +300,16 @@ class WaveformAnnotator:
                                 'speed_raw': int(row['speed_raw']),
                                 'max_pos': int(row['max_pos']),
                                 'signal_length': int(row['signal_length']),
-                                'timestamp': row['timestamp']
+                                'timestamp': row['timestamp'],
+                                'trial_num': row.get('trial_num'),
+                                'throw': int(row.get('throw', 0)) if row.get('throw', '') != '' else 0
                             }
+                            if not annotation['trial_num']:
+                                sample_data = self.dataset['data'][sample_index]
+                                annotation['trial_num'] = self.determine_trial_num(sample_data)
+                            if not annotation['prepos']:
+                                sample_data = self.dataset['data'][sample_index]
+                                annotation['prepos'] = self.determine_prepos(sample_data)
                             self.annotations.append(annotation)
                             break  # 1つのファイルには1つのアノテーションのみ
                 except Exception as e:
@@ -271,8 +332,11 @@ class WaveformAnnotator:
             
             self.current_index = next_index
             print(f"Starting from sample {next_index + 1}/{len(self.dataset['data'])}")
+            existing = self.get_annotation_for_index(self.current_index)
+            self.current_throw = existing.get('throw', 0) if existing else 0
         else:
             print("No existing annotations found. Starting from the beginning.")
+            self.current_throw = 0
     
     def calculate_features(self, signal, start_pos, end_pos):
         """
@@ -364,10 +428,14 @@ class WaveformAnnotator:
         self.ax.legend(loc='upper right')
         
         # 操作説明を追加
-        info_text = "Controls: 'a'=Start, 's'=End, 'd'=Next, 'r'=Reset, 'p'=Previous, 'q'=Quit"
+        info_text = "Controls: 'a'=Start, 's'=End, 't'=Toggle throw, 'd'=Next, 'r'=Reset, 'p'=Previous, 'q'=Quit"
         self.ax.text(0.02, 0.98, info_text, transform=self.ax.transAxes, 
                     fontsize=10, verticalalignment='top',
                     bbox=dict(boxstyle="round,pad=0.3", facecolor='yellow', alpha=0.8))
+        throw_text = f"Throw flag: {self.current_throw} (0=use, 1=discard)"
+        self.ax.text(0.02, 0.9, throw_text, transform=self.ax.transAxes,
+                     fontsize=10, verticalalignment='top',
+                     bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7))
         
         # アノテーション状態表示
         if self.start_pos is not None and self.end_pos is not None:
@@ -417,6 +485,13 @@ class WaveformAnnotator:
             self.end_pos = self.mouse_x
             print(f"End position (s) set to: {self.end_pos}")
             self.plot_current_data()
+        
+        elif event.key == 't':
+            # throwフラグをトグル
+            self.current_throw = 0 if self.current_throw else 1
+            state_label = "discard" if self.current_throw else "use"
+            print(f"Toggled throw flag to {self.current_throw} ({state_label})")
+            self.plot_current_data()
             
         elif event.key == 'd':
             # 次のデータ
@@ -427,6 +502,7 @@ class WaveformAnnotator:
             # リセット
             self.start_pos = None
             self.end_pos = None
+            self.current_throw = 0
             print("Annotation reset")
             self.plot_current_data()
             
@@ -468,6 +544,7 @@ class WaveformAnnotator:
             'person_display': current_data.get('person_display', 'Unknown'),
             'label_name': current_data.get('label_name', 'Unknown'),
             'session': current_data.get('session', 'Unknown'),
+            'prepos': self.determine_prepos(current_data),
             'start_pos': self.start_pos,
             'end_pos': self.end_pos,
             'start_raw': features['start_raw'],
@@ -477,7 +554,9 @@ class WaveformAnnotator:
             'speed_raw': features['speed_raw'],
             'max_pos': features['max_pos'],
             'signal_length': len(signal),
-            'timestamp': datetime.now().isoformat()
+            'timestamp': datetime.now().isoformat(),
+            'trial_num': self.determine_trial_num(current_data),
+            'throw': int(self.current_throw)
         }
         
         # 既存のアノテーションを更新または追加
@@ -507,9 +586,9 @@ class WaveformAnnotator:
         filepath = os.path.join(self.individual_dir, filename)
         
         # CSVファイルに保存
-        fieldnames = ['sample_index', 'person_id', 'person_display', 'label_name', 'session', 
+        fieldnames = ['sample_index', 'person_id', 'person_display', 'label_name', 'session', 'prepos',
                      'start_pos', 'end_pos', 'start_raw', 'end_raw', 'max_pos', 'signal_length',
-                     'power_raw', 'time_raw', 'speed_raw', 'timestamp']
+                     'power_raw', 'time_raw', 'speed_raw', 'trial_num', 'throw', 'timestamp']
         
         with open(filepath, 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -630,11 +709,11 @@ class WaveformAnnotator:
         filepath = os.path.join(self.results_dir, filename)
         
         # CSVファイルに保存
-        fieldnames = ['sample_index', 'person_id', 'person_display', 'label_name', 'session', 
+        fieldnames = ['sample_index', 'person_id', 'person_display', 'label_name', 'session', 'prepos',
                      'start_pos', 'end_pos', 'start_raw', 'end_raw', 'max_pos', 'signal_length',
                      'power_raw', 'time_raw', 'speed_raw',
                      'power_normalized', 'time_normalized', 'speed_normalized',
-                     'timestamp']
+                     'trial_num', 'throw', 'timestamp']
         
         with open(filepath, 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -668,6 +747,8 @@ class WaveformAnnotator:
             self.current_index += 1
             self.start_pos = None
             self.end_pos = None
+            existing = self.get_annotation_for_index(self.current_index)
+            self.current_throw = int(existing.get('throw', 0)) if existing else 0
             print(f"Moved to sample {self.current_index + 1}/{len(self.dataset['data'])}")
             self.plot_current_data()
         else:
@@ -679,6 +760,8 @@ class WaveformAnnotator:
             self.current_index -= 1
             self.start_pos = None
             self.end_pos = None
+            existing = self.get_annotation_for_index(self.current_index)
+            self.current_throw = int(existing.get('throw', 0)) if existing else 0
             print(f"Moved to sample {self.current_index + 1}/{len(self.dataset['data'])}")
             self.plot_current_data()
         else:
@@ -692,6 +775,7 @@ class WaveformAnnotator:
         print("Controls:")
         print("  'a' - Set start position")
         print("  's' - Set end position")
+        print("  't' - Toggle throw flag (0↔1)")
         print("  'd' - Next data")
         print("  'r' - Reset current annotation")
         print("  'p' - Previous data")

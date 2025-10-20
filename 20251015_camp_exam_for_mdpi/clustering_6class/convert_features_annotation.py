@@ -96,7 +96,9 @@ def load_annotation_results(annotation_dir='../annotation/annotation_results/ind
                         'speed_raw': int(row['speed_raw']),
                         'max_pos': int(row['max_pos']),
                         'signal_length': int(row['signal_length']),
-                        'timestamp': row['timestamp']
+                        'timestamp': row['timestamp'],
+                        'trial_num': row.get('trial_num'),
+                        'throw': int(row.get('throw', 0)) if row.get('throw', '') != '' else 0
                     }
                     annotations.append(annotation)
                     break  # 1つのファイルには1つのアノテーションのみ
