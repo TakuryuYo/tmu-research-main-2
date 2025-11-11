@@ -1,11 +1,44 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 import sys
 import pickle
 from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont
 from reposition import reposition
 from load import parse_filename
+
+
+def _load_font(size):
+    """Try to load a system font that can render Japanese text; fall back to default."""
+    font_candidates = [
+        "/System/Library/Fonts/AppleSDGothicNeo.ttc",
+        "/System/Library/Fonts/Supplemental/AppleSDGothicNeo.ttc",
+        "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+        "/System/Library/Fonts/Supplemental/Helvetica.ttc",
+    ]
+    for path in font_candidates:
+        if os.path.exists(path):
+            try:
+                return ImageFont.truetype(path, size=size)
+            except OSError:
+                continue
+    return ImageFont.load_default()
+
+
+def _text_height(font, text="Ag"):
+    """Return text height for the given font."""
+    try:
+        bbox = font.getbbox(text)
+        return bbox[3] - bbox[1]
+    except AttributeError:
+        return font.getsize(text)[1]
+
+
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = BASE_DIR.parent
+DEFAULT_RAW_DATA_DIR = PROJECT_DIR / "raw_data"
+DEFAULT_ALIGNED_DIR = PROJECT_DIR / "aligned_dataset"
+DEFAULT_PLOT_DIR = PROJECT_DIR / "input_datas"
 
 
 def create_aligned_dataset(repositioned_data, target_length=None, output_dir='aligned_dataset'):
@@ -200,7 +233,7 @@ def save_dataset_as_pickle(dataset_info, output_dir='aligned_dataset'):
 
 def plot_all_data(dataset_info, plot_dir='input_datas'):
     """
-    全データのプロットを作成して保存
+    Pillowベースで全データのプロットを作成して保存
     
     Args:
         dataset_info: create_aligned_datasetの戻り値
@@ -208,65 +241,131 @@ def plot_all_data(dataset_info, plot_dir='input_datas'):
     """
     print(f"Creating plots for all data in {plot_dir}/...")
     
-    # 出力ディレクトリを作成
     os.makedirs(plot_dir, exist_ok=True)
     
     total_samples = len(dataset_info["data"])
     plot_count = 0
     
+    img_width, img_height = 1200, 600
+    plot_width = int(img_width * 0.65)
+    text_area_left = plot_width + 30
+    title_font = _load_font(22)
+    body_font = _load_font(16)
+    mono_font = _load_font(14)
+    title_height = _text_height(title_font)
+    body_line_height = _text_height(body_font) + 6
+    
     for sample in dataset_info["data"]:
-        # プロット作成
-        plt.figure(figsize=(12, 6))
+        values = np.asarray(sample["aligned_value"], dtype=np.float64)
+        if values.size == 0:
+            continue
         
-        # 位置合わせ前後のデータをプロット
-        plt.subplot(1, 2, 1)
-        # 元データの読み込み（repositioned_dataから取得するため、ここでは簡略化）
-        plt.plot(sample["aligned_value"])
-        plt.title(f'Aligned Data\n{sample["person"]} - {sample["label_name"]}')
-        plt.xlabel('Time Sample')
-        plt.ylabel('Amplitude')
-        plt.grid(True, alpha=0.3)
+        img = Image.new("RGB", (img_width, img_height), "white")
+        draw = ImageDraw.Draw(img)
         
-        # ピーク位置を示す
-        peak_pos = sample["target_peak_position"]
-        plt.axvline(x=peak_pos, color='red', linestyle='--', alpha=0.7, label=f'Peak at {peak_pos}')
-        plt.legend()
+        plot_left = 40
+        plot_right = plot_width - 40
+        plot_top = 20 + title_height + 10
+        plot_bottom = img_height - 40
+        plot_height = plot_bottom - plot_top
+        plot_mid = plot_top + plot_height / 2
         
-        # データ情報を表示
-        plt.subplot(1, 2, 2)
-        info_text = f"""Data Information:
-Person: {sample["person"]}
-Label: {sample["label_name"]} (ID: {sample["label_id"]})
-Session: {sample["session"]}
-Original Length: {sample["original_length"]}
-Target Length: {len(sample["aligned_value"])}
-Original Peak: {sample["original_peak_position"]}
-Target Peak: {sample["target_peak_position"]}
-Shift: {sample["shift"]}
-Filename: {sample["filename"]}"""
+        # タイトル
+        title = f'Aligned Data: {sample["person"]} - {sample["label_name"]}'
+        draw.text((plot_left, 20), title, fill=(0, 0, 0), font=title_font)
         
-        plt.text(0.05, 0.95, info_text, transform=plt.gca().transAxes, 
-                verticalalignment='top', fontfamily='monospace', fontsize=9)
-        plt.axis('off')
+        # グリッド描画
+        grid_color = (220, 220, 220)
+        for i in range(5):
+            y = plot_top + plot_height * i / 4
+            draw.line([(plot_left, y), (plot_right, y)], fill=grid_color, width=1)
+        for i in range(6):
+            x = plot_left + (plot_right - plot_left) * i / 5
+            draw.line([(x, plot_top), (x, plot_bottom)], fill=grid_color, width=1)
+        draw.rectangle([plot_left, plot_top, plot_right, plot_bottom], outline=(120, 120, 120), width=1)
         
-        plt.tight_layout()
+        max_abs = float(np.max(np.abs(values)))
+        if max_abs == 0:
+            max_abs = 1.0
+        scale = (plot_bottom - plot_top) / (2 * max_abs)
+        zero_y = plot_mid
+        draw.line([(plot_left, zero_y), (plot_right, zero_y)], fill=(180, 180, 180), width=1)
         
-        # ファイル名を生成（日本語文字を安全な文字に置換）
-        label_name_safe = (sample['label_name']
-                         .replace('（', '_').replace('）', '_').replace('/', '_')
-                         .replace('ー', '_').replace(' ', '_'))
+        value_len = len(values)
+        if value_len > 1:
+            denom = value_len - 1
+        else:
+            denom = 1
+        
+        max_points = 2000
+        if value_len > max_points:
+            sample_idx = np.linspace(0, value_len - 1, max_points, dtype=int)
+        else:
+            sample_idx = np.arange(value_len)
+        
+        waveform_points = []
+        for idx in sample_idx:
+            ratio = idx / denom
+            x = plot_left + (plot_right - plot_left) * ratio
+            y = plot_mid - values[idx] * scale
+            y = max(plot_top, min(plot_bottom, y))
+            waveform_points.append((int(round(x)), int(round(y))))
+        
+        if len(waveform_points) > 1:
+            draw.line(waveform_points, fill=(46, 117, 182), width=2)
+        else:
+            draw.point(waveform_points[0], fill=(46, 117, 182))
+        
+        # ピーク位置ライン
+        peak_index = int(sample["target_peak_position"])
+        peak_index = max(0, min(peak_index, value_len - 1))
+        peak_ratio = peak_index / denom
+        peak_x = plot_left + (plot_right - plot_left) * peak_ratio
+        draw.line([(peak_x, plot_top), (peak_x, plot_bottom)], fill=(200, 60, 60), width=2)
+        peak_label = f"Peak {peak_index}"
+        label_y = plot_top + 5
+        draw.text((min(peak_x + 6, plot_right - 80), label_y), peak_label, fill=(200, 60, 60), font=mono_font)
+        
+        # メタ情報
+        sampling_rate = sample.get("sampling_rate_hz")
+        nyquist_hz = sample.get("nyquist_hz")
+        info_lines = [
+            ("Person", sample["person"]),
+            ("Label", f"{sample['label_name']} (ID: {sample['label_id']:02d})"),
+            ("Session", sample["session"]),
+            ("Original Length", sample["original_length"]),
+            ("Target Length", len(values)),
+            ("Original Peak", sample["original_peak_position"]),
+            ("Aligned Peak", sample["target_peak_position"]),
+            ("Shift", sample["shift"]),
+            ("Sampling Rate", f"{sampling_rate:.2f} Hz" if sampling_rate is not None else "-"),
+            ("Nyquist", f"{nyquist_hz:.2f} Hz" if nyquist_hz is not None else "-"),
+            ("Filename", sample["filename"]),
+        ]
+        
+        text_y = 30
+        draw.text((text_area_left, text_y), "Data Information", fill=(0, 0, 0), font=title_font)
+        text_y += title_height + 10
+        
+        for key, value in info_lines:
+            text = f"{key:>15}: {value}"
+            draw.text((text_area_left, text_y), text, fill=(20, 20, 20), font=body_font)
+            text_y += body_line_height
+        
+        # ファイル名生成
+        label_name_safe = (
+            sample['label_name']
+            .replace('（', '_').replace('）', '_').replace('/', '_')
+            .replace('ー', '_').replace(' ', '_')
+        )
         filename = f"{sample['person']}_{label_name_safe}_session{sample['session']}_label{sample['label_id']:02d}.png"
         filepath = os.path.join(plot_dir, filename)
         
-        # プロット保存
-        plt.savefig(filepath, dpi=150, bbox_inches='tight')
-        plt.close()
+        img.save(filepath, format="PNG", optimize=True)
         
         plot_count += 1
-        
-        # 進捗表示
         if plot_count % 50 == 0:
-            print(f"  Progress: {plot_count}/{total_samples} plots saved ({100*plot_count/total_samples:.1f}%)")
+            print(f"  Progress: {plot_count}/{total_samples} plots saved ({100 * plot_count / total_samples:.1f}%)")
     
     print(f"Successfully saved {plot_count} plots to {plot_dir}/")
 

@@ -1,7 +1,6 @@
 import numpy as np
 import load
 import sys
-import matplotlib.pyplot as plt
 import copy
 from collections import defaultdict
 

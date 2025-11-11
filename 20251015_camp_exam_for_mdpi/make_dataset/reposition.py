@@ -1,9 +1,26 @@
 import numpy as np
 import max_norm
 import sys
-import matplotlib.pyplot as plt
 import copy
+import os
 from scipy.signal import find_peaks
+
+_ENABLE_MATPLOTLIB_PLOTS = os.environ.get("ENABLE_MATPLOTLIB_PLOTS", "").lower() in ("1", "true", "yes")
+if _ENABLE_MATPLOTLIB_PLOTS:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt  # type: ignore
+else:
+    plt = None
+
+
+def _require_matplotlib():
+    if plt is None:
+        raise RuntimeError(
+            "Matplotlib plotting helpers are disabled. "
+            "Set ENABLE_MATPLOTLIB_PLOTS=1 before running if matplotlib is available."
+        )
+    return plt
 
 def find_main_peak(values, window_size=10, height_threshold=0.3):
     """
@@ -193,6 +210,7 @@ def plot_alignment_example(repositioned_data, person_idx=0, label_id=1, session=
         print(f"Data not found: person={person['person']}, label_id={label_id}, session={session}")
         return
     
+    plt = _require_matplotlib()
     plt.figure(figsize=(12, 6))
     
     # アライメント結果をプロット
@@ -234,6 +252,7 @@ def plot_overlayed_data(repositioned_data, label_id=1, session=1, save_path=None
         save_path (str): 保存パス（Noneの場合は表示のみ）
         show_all_sessions (bool): 全セッションを表示するかどうか
     """
+    plt = _require_matplotlib()
     plt.figure(figsize=(15, 10))
     
     if show_all_sessions:
@@ -341,6 +360,7 @@ def plot_before_after_alignment(original_data, repositioned_data, person_idx=0, 
         session (int): 表示するセッション
         save_path (str): 保存パス
     """
+    plt = _require_matplotlib()
     fig, axes = plt.subplots(2, 1, figsize=(15, 10))
     
     # アライメント前のデータを取得
@@ -420,8 +440,12 @@ if __name__ == "__main__":
         
         # 例のプロットを作成
         if len(repositioned_data) > 0:
-            print("\nCreating example alignment plot...")
-            plot_alignment_example(repositioned_data, person_idx=0, label_id=1, session=1, 
-                                   save_path="alignment_example.png")
+            if plt is None:
+                print("\nSkipping example alignment plot because matplotlib is disabled.")
+            else:
+                print("\nCreating example alignment plot...")
+                plot_alignment_example(
+                    repositioned_data, person_idx=0, label_id=1, session=1, save_path="alignment_example.png"
+                )
     else:
         print("Usage: python reposition.py <directory_path>")
